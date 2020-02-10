@@ -1,9 +1,8 @@
-const Role = require('../models/Role');
 const User = require('../models/User');
 
 async function index(req,res) {
   const data = await User.findAll({
-    include: [ Role ]
+    where: { status: 1 }
   })
   .then(function(data){
     return data;
@@ -19,13 +18,14 @@ async function index(req,res) {
 }
 
 async function create(req,res) {
-  const {name, email, address, phone, role } = req.body;
+  const { name, mother_lastname, father_lastname, email, phone, address } = req.body;
   const data = await User.create({
-    name:name,
+    name: name,
+    father_lastname: father_lastname,
+    mother_lastname: mother_lastname,
     email:email,
     address:address,
     phone:phone,
-    roleId:role,
     status: 1
   })
   .then(function(data){
@@ -45,9 +45,7 @@ async function create(req,res) {
 
 async function edit(req, res) {
   const { id } = req.params;
-  const data = await User.findByPk(id, {
-    include: [ Role ]
-  })
+  const data = await User.findByPk(id)
   .then( function(data){
     return data;
   })
@@ -63,13 +61,14 @@ async function edit(req, res) {
 
 async function update(req, res) {
   const { id } = req.params;
-  const { name, email, phone, address, role } = req.body;
+  const { name, mother_lastname, father_lastname, email, phone, address } = req.body;
   const data = await User.update({
     name: name,
+    father_lastname: father_lastname,
+    mother_lastname: mother_lastname,
     email:email,
     address:address,
-    phone:phone,
-    roleId:role
+    phone:phone
   },{
     where: { id: id}
   })

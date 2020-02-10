@@ -1,7 +1,6 @@
 'use strict';
 const moment  = require('moment');
 const { sequelize, Sequelize } = require('../config/db');
-const Role = require('./Role');
 
 var User = sequelize.define('user', {
   name: Sequelize.STRING,
@@ -10,7 +9,6 @@ var User = sequelize.define('user', {
   email: Sequelize.STRING,
   address: Sequelize.STRING,
   phone: Sequelize.BIGINT,
-  role_id: Sequelize.INTEGER,
   status: Sequelize.TINYINT,
 }, {
 	timestamps: false,
@@ -20,7 +18,5 @@ var User = sequelize.define('user', {
 		},
 	}
 });
-
-User.belongsTo(Role, { foreignKey: 'role_id' });
 
 module.exports = User;
