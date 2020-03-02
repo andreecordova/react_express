@@ -4,13 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from 'axios';
 
+//library sweetalert
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+
 import { Link } from "react-router-dom";
 
-//library sweetalert
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
-
-const baseUrl = "http://localhost:3000"
+const baseUrl = "http://localhost:3000";
 
 class list extends React.Component  {
 
@@ -34,19 +34,19 @@ class list extends React.Component  {
         this.setState({listUsers:data})
       }
       else {
-        swal("Error web service")
+        Swal.fire("Error web service")
       }
     })
     .catch(error=>{
-      swal("Error server "+error)
+      Swal.fire("Error server "+error)
     })
   }
 
   render()
   {
     return (
-      <table class="table table-hover table-striped">
-        <thead class="thead-dark">
+      <table className="table table-hover table-striped">
+        <thead className="thead-dark">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
@@ -55,7 +55,7 @@ class list extends React.Component  {
             <th scope="col">Email</th>
             <th scope="col">Dirección</th>
             <th scope="col">Teléfono</th>
-            <th colspan="2">Acciones</th>
+            <th colSpan="2">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -77,10 +77,10 @@ class list extends React.Component  {
           <td>{data.address}</td>
           <td>{data.phone}</td>
           <td>
-            <Link class="btn btn-outline-info" to={"/edit/"+data.id}>Edit</Link>
+            <Link className="btn btn-outline-info" to={"/edit/"+data.id}>Edit</Link>
           </td>
           <td>
-            <button class="btn btn-outline-danger" onClick={()=>this.onDelete(data.id)}> Delete </button>
+            <button className="btn btn-outline-danger" onClick={()=>this.onDelete(data.id)}> Delete </button>
           </td>
         </tr>
       )
@@ -120,7 +120,7 @@ class list extends React.Component  {
       }
     })
     .catch ( error => {
-      swal("Error 325 ")
+      Swal.fire("Error 325 ")
     })
   }
 }
