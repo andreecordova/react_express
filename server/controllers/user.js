@@ -86,7 +86,7 @@ async function update(req, res) {
 	});
 }
 
-async function delete(req,res) {
+async function remove(req,res) {
   const { id } = req.params;
   const user = await User.update({
     status: 0,
@@ -100,4 +100,4 @@ async function delete(req,res) {
 	});
 }
 
-module.exports = { index, create, edit, update, delete };
+module.exports = { index, create, edit, update, remove };

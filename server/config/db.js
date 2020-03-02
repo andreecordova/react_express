@@ -1,11 +1,12 @@
 require('dotenv').config();
 
 const Sequelize = require('sequelize');
+
 const sequelize = new Sequelize(
-    process.env.DB_DATABASE   || 'test',
-    process.env.DB_USERNAME   || 'root',
-    process.env.DB_PASSWORD   || 'root',
-    {
+  process.env.DB_DATABASE   || 'test',
+  process.env.DB_USERNAME   || 'root',
+  process.env.DB_PASSWORD   || 'root',
+  {
     host: process.env.DB_WRITE_HOST || 'localhost',
     dialect: 'mysql',
     port: process.env.DB_PORT || 3306,
@@ -30,7 +31,8 @@ const sequelize = new Sequelize(
         typeCast: true
     },
     timezone: '-05:00'
-});
+  }
+);
 
 sequelize.authenticate()
   .then(() => {
