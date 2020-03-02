@@ -1,0 +1,69 @@
+version: '3.1'
+
+services:
+  client:
+    build: ./client
+    environment:
+      - REACT_APP_PORT=${REACT_APP_PORT}
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./client:/home/node/client"
+    depends_on:
+      - server
+    links:
+      - server
+    working_dir: "/home/node/client"
+    command: sh init.sh
+  
+  server:
+    build: ./server
+    environment:
+      - DB_HOST=db
+      - DB_NAME=${MYSQL_DATABASE}
+      - DB_USER=${MYSQL_ROOT_USERNAME}
+      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_READ_HOST=${DB_READ_HOST}
+      - DB_WRITE_HOST=${DB_WRITE_HOST}
+      - DB_PORT=${DB_PORT}
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./server:/home/node/server"
+    depends_on:
+      - db
+      - adminer
+    links:
+      - db
+    working_dir: "/home/node/server"
+    command: sh init.sh
+  
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    networks:
+      backend-net:
+        ipv4_address: 11.0.111.15
+    volumes:
+      - "./db:/var/lib/mysql"
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+  
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+      
+networks:
+  backend-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 11.0.111.0/26
