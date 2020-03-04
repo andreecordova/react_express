@@ -11,10 +11,10 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-			mother_lastname: {
+			father_lastname: {
         type: Sequelize.STRING
       },
-      father_lastname: {
+      mother_lastname: {
         type: Sequelize.STRING
       },
       email: {
@@ -28,26 +28,6 @@ module.exports = {
       },
       status: {
         type: Sequelize.TINYINT
-      },
-      created_by: {
-        type: Sequelize.INTEGER
-      },
-      updated_by: {
-        type: Sequelize.INTEGER
-      },
-      created_by_name: {
-        type: Sequelize.STRING
-      },
-      updated_by_name: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },

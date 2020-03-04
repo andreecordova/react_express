@@ -10,7 +10,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 import { Link } from "react-router-dom";
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:8080";
 
 class list extends React.Component  {
 
@@ -26,7 +26,7 @@ class list extends React.Component  {
   }
 
   loadEmployee(){
-    const url = baseUrl+"/employee/list"
+    const url = baseUrl+"/api/employee/list"
     axios.get(url)
     .then(res=>{
       if (res.data.success) {
@@ -68,7 +68,7 @@ class list extends React.Component  {
   loadFillData(){
     return this.state.listUsers.map((data)=>{
       return(
-        <tr>
+        <tr key={data.id}>
           <th>{data.id}</th>
           <td>{data.name}</td>
           <td>{data.father_lastname}</td>
@@ -104,9 +104,9 @@ class list extends React.Component  {
 
   sendDelete(userId){
     // url de backend
-    const baseUrl = "http://localhost:3000/employee/delete"    // parameter data post
+    const url = baseUrl + "/api/employee/delete"    // parameter data post
     // network
-    axios.post(baseUrl,{
+    axios.post(url,{
       id:userId
     })
     .then(response =>{

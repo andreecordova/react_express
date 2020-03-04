@@ -5,6 +5,7 @@ services:
     build: ./client
     environment:
       - REACT_APP_PORT=${REACT_APP_PORT}
+      - APP_SERVER_PORT=${APP_SERVER_PORT}
     ports:
       - "3000:3000"
     volumes:
@@ -28,6 +29,7 @@ services:
       - DB_READ_HOST=${DB_READ_HOST}
       - DB_WRITE_HOST=${DB_WRITE_HOST}
       - DB_PORT=${DB_PORT}
+      - APP_SERVER_PORT=${APP_SERVER_PORT}
     ports:
       - "8080:8080"
     volumes:
@@ -35,8 +37,6 @@ services:
     depends_on:
       - db
       - adminer
-    links:
-      - db
     working_dir: "/home/node/server"
     command: sh init.sh
   
@@ -44,26 +44,18 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-    networks:
-      backend-net:
-        ipv4_address: 11.0.111.15
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+    ports:
+      - "3308:3306"
     volumes:
       - "./db:/var/lib/mysql"
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
   
   adminer:
     image: adminer
+    restart: always
     ports:
-      - "8081:8081"
+      - "9000:9000"
     depends_on:
       - db
-      
-networks:
-  backend-net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 11.0.111.0/26

@@ -4,12 +4,12 @@ const { sequelize, Sequelize } = require('../config/db');
 
 var User = sequelize.define('user', {
   name: Sequelize.STRING,
-	mother_lastname: Sequelize.STRING,
-	father_lastname: Sequelize.STRING,
+  father_lastname: Sequelize.STRING,
+  mother_lastname: Sequelize.STRING,
   email: Sequelize.STRING,
   address: Sequelize.STRING,
   phone: Sequelize.BIGINT,
-  status: Sequelize.TINYINT,
+  status: Sequelize.TINYINT
 }, {
 	timestamps: false,
 	getterMethods: {

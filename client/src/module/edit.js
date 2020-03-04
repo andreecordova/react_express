@@ -8,7 +8,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
-const baseUrl = "http://localhost:3000"
+const baseUrl = "http://localhost:8080"
 
 class Edit extends React.Component{
 
@@ -27,8 +27,8 @@ class Edit extends React.Component{
   componentDidMount(){
     // parametro de id del usuario
     let userId = this.props.match.params.id;
-    // http://localhost:3000/employee/get/4
-    const url = baseUrl+"/employee/get/"+userId
+    // http://localhost:8080/employee/get/4
+    const url = baseUrl+"/api/employee/get/"+userId
     axios.get(url)
     .then(res=>{
       if (res.data.success) {
@@ -57,35 +57,35 @@ class Edit extends React.Component{
       <div>
         <div className="form-row justify-content-center">
           <div className="form-group col-md-6">
-            <label for="name">Nombre</label>
+            <label htmlFor="name">Nombre</label>
             <input type="text" name="name" className="form-control"  placeholder="Ingrese Nombre"
               value={this.state.fieldName} onChange={(value)=> this.setState({fieldName:value.target.value})}/>
           </div>
           <div className="form-group col-md-6">
-            <label for="father_lastname">Apellido Paterno</label>
+            <label htmlFor="father_lastname">Apellido Paterno</label>
             <input type="text" name="father_lastname" className="form-control"  placeholder="Ingrese Apellido Paterno"
               value={this.state.fieldFatherLastName} onChange={(value)=> this.setState({fieldFatherLastName:value.target.value})}/>
           </div>
           <div className="form-group col-md-6">
-            <label for="mother_lastname">Apellido Materno</label>
+            <label htmlFor="mother_lastname">Apellido Materno</label>
             <input type="text" name="mother_lastname" className="form-control"  placeholder="Ingrese Apellido Materno"
               value={this.state.fieldMotherLastName} onChange={(value)=> this.setState({fieldMotherLastName:value.target.value})}/>
           </div>
           <div className="form-group col-md-6">
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input type="email" name="email" className="form-control"  placeholder="Ingrese Email"
               value={this.state.fieldEmail} onChange={(value)=> this.setState({fieldEmail:value.target.value})}/>
           </div>
         </div>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <label for="phone">Teléfono</label>
+            <label htmlFor="phone">Teléfono</label>
             <input type="number" name="phone" className="form-control"  placeholder="IngreseTeléfono"
               value={this.state.fieldPhone} onChange={(value)=> this.setState({fieldPhone:value.target.value})}/>
           </div>
         </div>
         <div className="form-group">
-          <label for="address">Dirección</label>
+          <label htmlFor="address">Dirección</label>
           <input type="text" name="address" className="form-control" id="inputAddress" placeholder="Ingrese Dirección"
             value={this.state.fieldAddress} onChange={(value)=> this.setState({fieldAddress:value.target.value})}/>
         </div>
@@ -99,7 +99,7 @@ class Edit extends React.Component{
     // get parameter id
     let userId = this.props.match.params.id;
     // url de backend
-    const baseUrl = "http://localhost:3000/employee/update/"+userId
+    const url = baseUrl+"/api/employee/update/"+userId
     // parameter data post
     const datapost = {
       name: this.state.fieldName,
@@ -107,10 +107,10 @@ class Edit extends React.Component{
       mother_lastname: this.state.fieldMotherLastName,
       email: this.state.fieldEmail,
       phone: this.state.fieldPhone,
-      address: this.state.fieldAddress,
+      address: this.state.fieldAddress
     }
 
-    axios.post(baseUrl,datapost)
+    axios.post(url,datapost)
     .then(response => {
       if (response.data.success) {
         Swal.fire(response.data.message)
