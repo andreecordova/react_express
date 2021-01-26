@@ -26,13 +26,12 @@ class Edit extends React.Component{
 
   componentDidMount(){
     // parametro de id del usuario
-    let userId = this.props.match.params.id;
-    // http://localhost:8080/employee/get/4
+    const userId = this.props.match.params.id;
     const url = baseUrl+"/api/employee/get/"+userId
-    axios.get(url)
-    .then(res=>{
-      if (res.data.success) {
-        const data = res.data.data[0]
+    axios.get(url).then(res=>{
+      const { success } = res.data;
+      if (success) {
+        const { data } = res.data
         this.setState({
           fieldName: data.name,
           fieldFatherLastName: data.father_lastname,
@@ -40,16 +39,13 @@ class Edit extends React.Component{
           fieldEmail:data.email,
           fieldPhone:data.phone,
           fieldAddress:data.address
-        })
-      }
-      else {
+        });
+      } else {
         Swal.fire("Error web service")
       }
-    })
-    .catch(error=>{
+    }).catch(error=>{
       Swal.fire("Error server "+error)
-    })
-
+    });
   }
 
   render(){

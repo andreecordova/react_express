@@ -1,4 +1,4 @@
-FROM node:slim
+FROM node:14.15.4-slim
 
 # Set the working directory to /home/node/client
 WORKDIR /home/node/client

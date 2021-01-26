@@ -16,11 +16,11 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.27",
-    "mysql2": "^2.1.0",
-    "sequelize": "^5.21.5",
-    "sequelize-cli": "^5.5.1",
-    "sequelize-datatables": "^1.2.1"
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.4.0",
+    "sequelize-cli": "^6.2.0",
+    "sequelize-datatables": "^3.0.0"
   }
 }
